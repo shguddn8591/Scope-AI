@@ -1,4 +1,4 @@
-# 🎯 Scope-AI: Architect Your AI Projects with Data-Backed Confidence
+# 🎯 Scope-AI: Your AI Business Architect & Profitability Engine
 
 <div align="center">
   <img src="https://img.shields.io/github/stars/kikicaca44/scope-ai?style=for-the-badge&logo=github&color=gold" alt="GitHub Stars" />
@@ -10,42 +10,39 @@
 
 <br />
 
-**Stop guessing your AI infrastructure costs.**  
-`Scope-AI` is a powerful **local web dashboard** designed for indie hackers and software architects. It transforms vague project ideas into structured technical blueprints, providing precise **token usage estimates** and **monthly cost projections** across 100+ LLM models.
+**"Ideas are cheap. Profitability is expensive."**  
+`Scope-AI` is an open-source, local-first **Business Intelligence & Architecture Platform** designed specifically for solo entrepreneurs and indie hackers. It transforms your raw AI project ideas into a comprehensive, data-backed technical blueprint and a sustainable business strategy in seconds.
 
 ---
 
-## 🚫 The Problem: "The AI Bill Shock"
+## 🚀 Project Vision & Goals
 
-Building an AI-powered service is easier than ever, but **budgeting it is a nightmare**.  
-- How many tokens will a 10-minute user session consume?
-- Is GPT-4o overkill for a simple summarization task? 
-- Will my project remain profitable at scale?
+For solo builders, the gap between a "cool idea" and a "profitable business" is often filled with hidden costs and architectural complexity. **Scope-AI bridges this gap.**
 
-Most developers realize they're losing money **after** receiving their first API invoice. **Scope-AI fixes this.**
+### Our Mission:
+- **Democratize Business Intelligence**: Provide high-level strategic analysis that usually costs thousands in consulting.
+- **Stop AI Bill Shock**: Project token costs accurately before writing a single line of code.
+- **Empower Solo Builders**: Suggest the leanest, most efficient technical stacks to move from idea to launch in record time.
+- **Privacy-First Strategy**: Keep your multi-million dollar ideas and API keys on your local machine.
 
 ---
 
-## ✨ Key Features
+## ✨ Key Features (The All-in-One Dashboard)
 
-### 🔍 1. Intelligent Task Breakdown
-Input a simple prompt like *"I want to build an AI code reviewer"*. Scope-AI's architect engine breaks it down into granular tasks: 
-- Context Indexing
-- Prompt Engineering
-- Output Generation
-- Metadata Analysis
+### 🧠 1. Multi-Agent Strategic Analysis
+Scope-AI employs three specialized LLM agents to dissect your idea:
+- **The Architect**: Decomposes prompts into granular technical tasks and builds a **3-stage Roadmap** (MVP → Beta → Scale).
+- **The Tech Lead**: Recommends the best **Solo-Developer Stack** and compares AI models for the best "Value-to-Performance" ratio.
+- **The CFO**: Analyzes the **Value Proposition**, identifies **Risk Factors**, and calculates the **Break-even Point (BEP)**.
 
 ### 💰 2. Real-time Cost Projection (Powered by LiteLLM)
-No hard-coded prices. Scope-AI fetches the latest pricing for **OpenAI, Anthropic, Gemini, Mistral**, and more. It calculates costs per 1,000 sessions based on predicted token I/O.
+- Fetch live pricing for 100+ LLM models (OpenAI, Anthropic, Gemini, Mistral, and more).
+- Automatically calculate projected costs per 1,000 user sessions based on estimated token I/O for each task.
 
-### 📊 3. Interactive Data Visualization
-Visualize your budget distribution with beautiful **Donut Charts** and interactive dashboards. Identify cost-heavy tasks at a glance.
-
-### 🤖 4. Smart Model Recommendations
-Get suggestions on which model provides the best "Value-to-Performance" ratio for each specific task in your project.
-
-### 🔑 5. Privacy-First (BYOK)
-`Scope-AI` runs entirely on your local machine. Your API keys and project ideas never leave your system. **Bring Your Own Key (BYOK)** and start planning for free.
+### 📊 3. Interactive Business Intelligence
+- **Cost Distribution Charts**: Visualize which tasks are "cash burners" at a glance.
+- **Strategy Tab**: Review your core business logic, risk mitigations, and implementation roadmap.
+- **Local History**: Save and compare multiple blueprints to find the most viable business model.
 
 ---
 
@@ -53,55 +50,54 @@ Get suggestions on which model provides the best "Value-to-Performance" ratio fo
 
 - **Frontend**: [Next.js 15](https://nextjs.org/) (App Router), [Tailwind CSS v4](https://tailwindcss.com/), [shadcn/ui v4](https://ui.shadcn.com/), [Recharts](https://recharts.org/)
 - **Backend**: [FastAPI](https://fastapi.tiangolo.com/), [LiteLLM](https://github.com/BerriAI/litellm) (Multi-model integration)
-- **AI Logic**: Structured JSON outputs via GPT-4o-mini/Claude-3-Sonnet
+- **Validation**: [Pytest](https://pytest.org/) (Backend), [Jest](https://jestjs.io/) (Frontend)
+- **Infrastructure**: [GitHub Actions](https://github.com/features/actions) (Automated CI/CD)
 
 ---
 
-## 🚀 Getting Started
+## 📖 How it Works: The Internal Intelligence
 
-### 1. Clone the repository
+1. **Requirement Intake**: Describe your idea (e.g., *"An AI agent for automated legal document review"*).
+2. **Deep Decomposition**: 
+   - **Architect** identifies 5-10 technical modules.
+   - **CFO** calculates if a $20/mo subscription covers the API costs.
+   - **Tech Lead** suggests using `gpt-4o-mini` for summarization to save 90% in costs.
+3. **Blueprint Generation**: A structured JSON results in a beautiful, printable dashboard.
+
+---
+
+## 🚀 Getting Started (Perfect-at-Launch)
+
+### 1. Clone & Setup
 ```bash
 git clone https://github.com/kikicaca44/scope-ai.git
 cd scope-ai
 ```
 
-### 2. Run the one-click setup
-We provide a simple script to launch both the frontend and backend simultaneously.
+### 2. Run the One-Click Script
+Launch both the AI Engine (FastAPI) and the Dashboard (Next.js) simultaneously.
 ```bash
 chmod +x run.sh
 ./run.sh
 ```
 
-### 3. Open your browser
-Navigate to `http://localhost:3000` and start architecting!
+### 3. Start Architecting
+Navigate to `http://localhost:3000`. Enter your OpenAI/Anthropic key (stored locally) and describe your next big thing.
 
 ---
 
-## 📖 How it Works: The Internal Logic
+## 🗺️ Roadmap (The Future of Scope-AI)
 
-1. **Requirement Analysis**: Your prompt is sent to a specialized LLM "Architect" prompt.
-2. **Structural Decomposition**: The Architect breaks the project into technical modules.
-3. **Token Estimation**: Each module is assigned an estimated Input/Output token count based on industry benchmarks.
-4. **Cost Calculation**: `LiteLLM` cross-references these tokens with real-time model pricing.
-5. **Blueprint Generation**: A final JSON blueprint is rendered on your dashboard.
-
----
-
-## 🗺️ Roadmap
-
-- [x] **v0.1.0**: Core Web Dashboard & Token Estimation
-- [x] **v0.2.0**: Export blueprints to `PDF` and `blueprint.yaml`
-- [x] **v0.3.0**: Support for **Local LLMs** (Ollama, Llama.cpp)
-- [x] **v0.4.0**: Local History & Blueprint Management
-- [x] **v1.0.0**: Community-driven project templates
+- [x] **v1.0.0**: Multi-Agent Strategy, Token Cost Projection, Strategy & Roadmap Dashboard.
+- [ ] **v1.1.0**: One-click boilerplate generation based on the recommended Tech Stack.
+- [ ] **v1.2.0**: Community Marketplace for business-model templates.
+- [ ] **v2.0.0**: Live cost tracking integration (connect to your real API usage).
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+We believe in the power of open-source to build the next generation of profitable businesses. Check our [CONTRIBUTING.md](./CONTRIBUTING.md) to join the journey.
 
 ---
 
@@ -109,9 +105,7 @@ Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of condu
 
 Distributed under the **MIT License**. See `LICENSE` for more information.
 
----
-
 <div align="center">
-  <p>Built with ❤️ by [Your Name] for the Global Builder Community.</p>
-  <p><b>Economic Freedom through Open Source.</b></p>
+  <p><b>Built for the Global Builder Community.</b></p>
+  <p><i>Empowering 1 Million Solo Entrepreneurs to build with Confidence.</i></p>
 </div>
