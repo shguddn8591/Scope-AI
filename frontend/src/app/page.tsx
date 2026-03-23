@@ -11,7 +11,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { 
   Rocket, LayoutGrid, Search, Wallet, Coins, AlertCircle, 
-  PieChart as PieIcon, ListChecks, Download, History, FileText, Server
+  PieChart as PieIcon, ListChecks, Download, History, FileText, Server,
+  ShieldAlert, Target, Map
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import YAML from "yaml";
@@ -345,6 +346,9 @@ export default function Home() {
                       <TabsTrigger value="tasks" className="rounded-none px-6 py-4 data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500">
                         <ListChecks className="w-4 h-4 mr-2" /> Breakdown
                       </TabsTrigger>
+                      <TabsTrigger value="strategy" className="rounded-none px-6 py-4 data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-amber-500">
+                        <Target className="w-4 h-4 mr-2" /> Strategy
+                      </TabsTrigger>
                       <TabsTrigger value="models" className="rounded-none px-6 py-4 data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-emerald-500">
                         <Rocket className="w-4 h-4 mr-2" /> Models
                       </TabsTrigger>
@@ -366,6 +370,52 @@ export default function Home() {
                             </div>
                           ))}
                         </div>
+                    </TabsContent>
+
+                    {/* Strategy Tab */}
+                    <TabsContent value="strategy" className="m-0 p-6 space-y-6 max-h-[400px] overflow-y-auto custom-scrollbar">
+                      <div className="space-y-2">
+                        <h4 className="text-xs font-bold text-amber-500 uppercase flex items-center gap-2">
+                          <Target className="w-3 h-3" /> Value Proposition
+                        </h4>
+                        <p className="text-sm text-slate-300 leading-relaxed bg-slate-950/50 p-3 rounded-lg border border-slate-800/50">
+                          {result.businessMetrics.valueProposition}
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <h4 className="text-xs font-bold text-blue-400 uppercase flex items-center gap-2">
+                            <Map className="w-3 h-3" /> Roadmap
+                          </h4>
+                          <div className="space-y-2">
+                            {result.roadmap.map((step: string, i: number) => (
+                              <div key={i} className="text-[11px] text-slate-400 border-l-2 border-slate-800 pl-3 py-1">
+                                {step}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <h4 className="text-xs font-bold text-red-400 uppercase flex items-center gap-2">
+                            <ShieldAlert className="w-3 h-3" /> Risk Factors
+                          </h4>
+                          <ul className="space-y-1">
+                            {result.businessMetrics.risks.map((risk: string, i: number) => (
+                              <li key={i} className="text-[11px] text-slate-500 flex items-start gap-1">
+                                <span>•</span> {risk}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div className="pt-2 border-t border-slate-800/50">
+                        <div className="flex justify-between items-center bg-emerald-500/5 p-3 rounded-xl border border-emerald-500/20">
+                          <span className="text-xs font-bold text-emerald-400">Break-even Point</span>
+                          <span className="text-sm font-black text-emerald-400">{result.businessMetrics.bepUsers} Users / Month</span>
+                        </div>
+                      </div>
                     </TabsContent>
                     
                     {/* Models List */}

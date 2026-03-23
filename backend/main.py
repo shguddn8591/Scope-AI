@@ -36,6 +36,12 @@ class BusinessMetrics(BaseModel):
     monthlyOperatingCost: float
     bepUsers: int
     margin: float
+    valueProposition: str
+    risks: List[str]
+
+class TechRecommendation(BaseModel):
+    model: str
+    reason: str
 
 class TechStack(BaseModel):
     frontend: str
@@ -55,6 +61,8 @@ class AnalysisResult(BaseModel):
     businessMetrics: BusinessMetrics
     techStack: TechStack
     systemPrompts: SystemPrompts
+    roadmap: List[str]
+    recommendations: List[TechRecommendation]
     modelUsed: str
 
 # Input Request Model
@@ -65,33 +73,48 @@ class ProjectRequirement(BaseModel):
 
 # System Prompts for Agents
 ARCHITECT_PROMPT = """
-You are an expert Software Architect. Analyze the user's project idea and break it down into technical tasks. 
+You are an expert Software Architect for Solo Entrepreneurs. Analyze the user's project idea and break it down into technical tasks.
 For each task, estimate the input and output tokens required per session for an AI to perform that task.
+Also, provide a high-level 3-stage roadmap (MVP, Beta, Scale).
 Return ONLY a JSON object with this exact structure:
 {
     "projectName": "Name",
     "tasks": [
         { "id": 1, "name": "Task Name", "description": "Short description", "inputTokens": 1000, "outputTokens": 500, "complexity": "Low/Medium/High" }
-    ]
+    ],
+    "roadmap": ["Stage 1: MVP - ...", "Stage 2: Beta - ...", "Stage 3: Scale - ..."]
 }
 """
 
 TECH_LEAD_PROMPT = """
-You are an expert Tech Lead. Analyze the user's project idea and recommend the best tech stack.
-Also, provide draft system prompts for three roles (Architect, Tech Lead, CFO) that can be used to build this project.
+You are an expert Tech Lead for Lean Startups. Analyze the user's project idea and recommend the best tech stack for a SOLO DEVELOPER (prioritize speed and low maintenance).
+Also, provide recommendations for AI models based on "Cost vs. Performance" (e.g., why choose GPT-4o-mini over GPT-4o for this project).
+And provide draft system prompts for three roles (Architect, Tech Lead, CFO) that can be used to build this project.
 Return ONLY a JSON object with this exact structure:
 {
     "techStack": { "frontend": "Framework", "backend": "Framework", "database": "DB", "infrastructure": "Cloud/Host" },
+    "recommendations": [
+        { "model": "GPT-4o-mini", "reason": "Reason why it's good for this specific use case" }
+    ],
     "systemPrompts": { "architect": "Prompt for Architect", "techLead": "Prompt for Tech Lead", "cfo": "Prompt for CFO" }
 }
 """
 
 CFO_PROMPT = """
-You are an expert CFO for startups. Analyze the user's project idea for business viability. 
+You are an expert Venture Capitalist and CFO for Solo Businesses. Analyze the user's project idea for high-growth potential and viability. 
 Suggest a revenue model, target pricing, estimated monthly operating cost, and calculate the number of users needed per month to break even (BEP).
+Identify the core "Value Proposition" and the top "Risks" for this specific AI business.
 Return ONLY a JSON object with this exact structure:
 {
-    "businessMetrics": { "revenueModel": "Subscription/Ads/etc", "targetPricing": 19.99, "monthlyOperatingCost": 500.0, "bepUsers": 25, "margin": 0.2 }
+    "businessMetrics": { 
+        "revenueModel": "Subscription/Ads/etc", 
+        "targetPricing": 19.99, 
+        "monthlyOperatingCost": 500.0, 
+        "bepUsers": 25, 
+        "margin": 0.2,
+        "valueProposition": "Why this business wins...",
+        "risks": ["Risk 1", "Risk 2"]
+    }
 }
 """
 
@@ -128,7 +151,9 @@ async def analyze_project(req: ProjectRequirement, authorization: Optional[str] 
         blueprint = {
             "projectName": architect_res.get("projectName", "Untitled Project"),
             "tasks": architect_res.get("tasks", []),
+            "roadmap": architect_res.get("roadmap", []),
             "techStack": tech_lead_res.get("techStack", {}),
+            "recommendations": tech_lead_res.get("recommendations", []),
             "systemPrompts": tech_lead_res.get("systemPrompts", {}),
             "businessMetrics": cfo_res.get("businessMetrics", {}),
             "modelUsed": req.model
@@ -144,7 +169,9 @@ async def analyze_project(req: ProjectRequirement, authorization: Optional[str] 
         for task in blueprint["tasks"]:
             i_tokens = task.get("inputTokens", 0)
             o_tokens = task.get("outputTokens", 0)
-            task_cost = ((i_tokens * input_price) + (o_tokens * output_price)) / 1_000_000
+            # cost_per_token returns price per token. 
+            # We want to show cost per 1,000 sessions (as per README/Frontend display)
+            task_cost = ((i_tokens * input_price) + (o_tokens * output_price)) * 1000
             task["cost"] = round(task_cost, 4)
             total_cost += task_cost
 
